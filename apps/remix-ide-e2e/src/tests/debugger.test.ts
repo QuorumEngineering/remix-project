@@ -97,6 +97,9 @@ module.exports = {
 
   'Should load more solidity locals array': function (browser: NightwatchBrowser) {
     browser.addFile('locals.sol', sources[2]['browser/locals.sol'])
+    .clickLaunchIcon('udapp')
+    .waitForElementPresent('*[data-id="deployAndRunClearInstances"]')
+    .click('*[data-id="deployAndRunClearInstances"]')
     .createContract('')
     .waitForElementPresent('*[data-id="universalDappUiTitleExpander"]')
     .click('*[data-id="universalDappUiTitleExpander"]')
