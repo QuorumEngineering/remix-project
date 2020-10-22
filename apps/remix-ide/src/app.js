@@ -208,6 +208,8 @@ async function run () {
     modalDialogCustom.alert(`Welcome to the Remix alpha instance. Please use it to try out latest features. But use preferably https://remix.ethereum.org for any production work.`)
   } else if (window.location.protocol.indexOf('http') === 0 &&
   window.location.hostname !== 'remix.ethereum.org' &&
+  window.location.hostname !== 'remix-dev.goquorum.com' &&
+  window.location.hostname !== 'remix-staging.goquorum.com' &&
   window.location.hostname !== 'localhost' &&
   window.location.hostname !== '127.0.0.1') {
     modalDialogCustom.alert(`The Remix IDE has moved to http://remix.ethereum.org.\n
@@ -403,7 +405,7 @@ Please make a backup of your contracts and start using http://remix.ethereum.org
   const params = queryParams.get()
 
   // Set workspace after initial activation
-  if (Array.isArray(workspace)) {    
+  if (Array.isArray(workspace)) {
     appManager.activatePlugin(workspace).then(() => {
       try {
         if (params.deactivate) {
@@ -412,7 +414,7 @@ Please make a backup of your contracts and start using http://remix.ethereum.org
       } catch (e) {
         console.log(e)
       }
-      
+
       // If plugins are loaded from the URL params, we focus on the last one.
       if (pluginLoader.current === 'queryParams' && workspace.length > 0) menuicons.select(workspace[workspace.length - 1])
 
@@ -426,7 +428,7 @@ Please make a backup of your contracts and start using http://remix.ethereum.org
           }, 5000)
         }
       }
-    }).catch(console.error)    
+    }).catch(console.error)
   } else {
     // activate solidity plugin
     appManager.ensureActivated('solidity')

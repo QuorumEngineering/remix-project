@@ -95,6 +95,17 @@ export class RemixAppManager extends PluginManager {
   async registeredPlugins () {
     const res = await fetch(this.pluginsDirectory)
     let plugins = await res.json()
+      .then((plugins) => plugins.map(plugin => {
+        if (plugin && plugin.name === 'quorum') {
+          return {
+            ...plugin,
+            url: 'http://localhost:3000',
+            icon: 'http://localhost:3000/tab_icon.png',
+            version: 'LOCAL'
+          }
+        }
+        return plugin
+      }))
     plugins.push({
       'name': 'walletconnect',
       'kind': 'provider',
